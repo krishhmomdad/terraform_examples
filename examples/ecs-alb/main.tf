@@ -17,9 +17,9 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "main" {
-  count             = var.az_count
+  count             = 1
   cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = data.aws_availability_zones.available.names[0]
   vpc_id            = aws_vpc.main.id
 }
 
@@ -83,7 +83,7 @@ data "aws_ami" "stable_coreos" {
     values = ["hvm"]
   }
 
-  owners = ["595879546273"] # CoreOS
+  owners = ["583843337741"] # CoreOS
 }
 
 resource "aws_launch_configuration" "app" {
